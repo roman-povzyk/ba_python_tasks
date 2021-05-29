@@ -9,6 +9,8 @@ symbols_list = ['.', ',', '!', '—', ':', ';', '?', '(', ')', '"', "'"]
 for symbol in symbols_list:
     sentence = sentence.replace(symbol, '')
 
+sentence = sentence.lower()
+
 a_list = sentence.split(" ")
 a_dict = {word: a_list.count(word) for word in a_list}
 
