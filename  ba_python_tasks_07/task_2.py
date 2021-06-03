@@ -6,10 +6,10 @@
 # out the values of the dictionary to make
 # sure that it works as intended.
 
-a_dict = {}
+dictionary = {}
 
 
-def make_country(country, capital):
+def make_country(country, capital, a_dict=dictionary):
     a_dict.update({country: capital})
     return a_dict
 
