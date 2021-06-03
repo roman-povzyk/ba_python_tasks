@@ -6,7 +6,6 @@
 # out the values of the dictionary to make
 # sure that it works as intended.
 
-
 d = {}
 
 
