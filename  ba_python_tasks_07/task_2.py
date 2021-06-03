@@ -6,12 +6,12 @@
 # out the values of the dictionary to make
 # sure that it works as intended.
 
-d = {}
+a_dict = {}
 
 
 def make_country(country, capital):
-    d.update({country: capital})
-    return d
+    a_dict.update({country: capital})
+    return a_dict
 
 
 print(make_country('Ukraine', 'Kyiv'))
