@@ -1,0 +1,16 @@
+{
+    "phonebook": [
+        {
+            "first_name": "Roma",
+            "last_name": "Povzyk",
+            "city": "Poltava",
+            "phone_number": "+380951291264"
+        },
+        {
+            "first_name": "Kate",
+            "last_name": "Krolevska",
+            "city": "Poltava",
+            "phone_number": "+380502083282"
+        }
+    ]
+}
