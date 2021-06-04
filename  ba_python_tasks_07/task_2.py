@@ -16,3 +16,4 @@ def make_country(country, capital, a_dict=dictionary):
 
 print(make_country('Ukraine', 'Kyiv'))
 print(make_country('India', 'New Dehli'))
+print(make_country('USA', 'Washington'))
