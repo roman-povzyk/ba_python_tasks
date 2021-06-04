@@ -7,14 +7,14 @@
 
 
 def oops():
-    raise IndexError('hello')
+    raise IndexError('У вас виникла IndexError')
 
 
-def another_function(x):
+def another_function():
     try:
-        print(x[4])
-    except IndexError:
         oops()
+    except IndexError as err_text:
+        print(f'{err_text}')
 
 
-print(another_function([1, 2, 3]))
+print(another_function())
