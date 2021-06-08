@@ -44,7 +44,7 @@ class TVController:
         # додаємо задану кількість переключень
         TVController.my_channel += number
         if number >= 0:
-            # перевіряємо, на який канал потрапили (не більше за довжину списку вперед)
+            # перевіряємо, на який канал потрапили (не більше за довжину списку вперед - 1)
             while TVController.my_channel + 1 > len(self.channels):
                 TVController.my_channel -= len(self.channels)
         else:
@@ -56,7 +56,7 @@ class TVController:
     def next_channel(self):
         # додаємо одне переключення вперед
         TVController.my_channel += 1
-        # перевіряємо, на який канал потрапили (не більше за довжину списку вперед)
+        # перевіряємо, на який канал потрапили (не більше за довжину списку вперед - 1)
         while TVController.my_channel + 1 > len(self.channels):
             TVController.my_channel -= len(self.channels)
         return self.channels[TVController.my_channel]
@@ -74,7 +74,7 @@ class TVController:
         return self.channels[TVController.my_channel]
 
     def is_exist(self, question_channel):
-        # визначаємо цифру чи літери отримали і відповідаємо щодо каналу
+        # визначаємо цифру чи літери отримали і відповідаємо щодо існування каналу
         question_channel = str(question_channel)
         if question_channel.isdigit():
             if int(question_channel) > len(self.channels):
