@@ -23,7 +23,7 @@ CHANNELS = ['BBC / #1 / [0]', 'Discovery / #2 / [1]', 'TV1000 / #3 / [2]']
 
 
 class TVController:
-    # визначаємо поточне показ такого пульту
+    # задаємо поточне значення на пульті
     my_channel = 0
 
     def __init__(self, channels):
