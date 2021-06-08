@@ -49,7 +49,7 @@ class TVController:
                 TVController.my_channel -= len(self.channels)
         else:
             # перевіряємо, на який канал потрапили (не менше за довжину списку назад)
-            while TVController.my_channel - 1 < len(self.channels) * (-1):
+            while TVController.my_channel < len(self.channels) * (-1):
                 TVController.my_channel += len(self.channels)
         return self.channels[TVController.my_channel]
 
@@ -65,7 +65,7 @@ class TVController:
         # додаємо одне переключення назад
         TVController.my_channel -= 1
         # перевіряємо, на який канал потрапили (не менше за довжину списку назад)
-        while TVController.my_channel - 1 < len(self.channels) * (-1):
+        while TVController.my_channel < len(self.channels) * (-1):
             TVController.my_channel += len(self.channels)
         return self.channels[TVController.my_channel]
 
