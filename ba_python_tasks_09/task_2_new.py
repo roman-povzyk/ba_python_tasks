@@ -23,11 +23,7 @@ import sys
 
 
 def search_if_phone_exist(number):
-    phone_exist = 0
-    for phone in data_json.keys():
-        if number == phone:
-            phone_exist = 1
-    if phone_exist:
+    if number in data_json.keys():
         return True
     else:
         return False
