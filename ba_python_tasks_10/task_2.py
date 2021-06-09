@@ -10,8 +10,12 @@ class Dog:
         self.age = age
 
     def human_age(self):
-        return self.age * Dog.age_factor
+        try:
+            return int(self.age) * Dog.age_factor
+        except ValueError:
+            print('Вкажіть вік собаки цифрами.')
 
 
-my_dog = Dog(3)
+
+my_dog = Dog('3')
 print(my_dog.human_age())

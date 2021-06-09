@@ -12,7 +12,10 @@ class Person:
         self.age = age
 
     def talk(self):
-        return f'Hello, my name is {self.first_name} {self.last_name} and I\'m {self.age} years old'
+        if str(self.age).isdigit():
+            print(f'Hello, my name is {self.first_name} {self.last_name} and I\'m {self.age} years old')
+        else:
+            print('Вік людини задано не числом. Поправте, будь ласка.')
 
 
 man = Person('Carl', 'Johnson', 26)

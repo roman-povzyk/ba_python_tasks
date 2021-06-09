@@ -41,32 +41,29 @@ class TVController:
         return self.channels[TVController.my_channel]
 
     def turn_channel(self, number):
-        # додаємо задану кількість переключень
-        TVController.my_channel += number
-        if number >= 0:
-            # перевіряємо, на який канал потрапили (не більше за довжину списку вперед - 1)
-            while TVController.my_channel + 1 > len(self.channels):
-                TVController.my_channel -= len(self.channels)
-        else:
-            # перевіряємо, на який канал потрапили (не менше за довжину списку назад)
-            while TVController.my_channel < len(self.channels) * (-1):
-                TVController.my_channel += len(self.channels)
-        return self.channels[TVController.my_channel]
+        # перевіряємо наявність і вмикаємо потрібний канал
+        try:
+            if int(number) > len(self.channels) - 1:
+                print('Такого каналу немає на пульті *шипіння*')
+            else:
+                return self.channels[TVController.my_channel]
+        except ValueError:
+            print('Ви передали число не цифрами. Поправте, будь ласка.')
 
     def next_channel(self):
         # додаємо одне переключення вперед
         TVController.my_channel += 1
-        # перевіряємо, на який канал потрапили (не більше за довжину списку вперед - 1)
-        while TVController.my_channel + 1 > len(self.channels):
-            TVController.my_channel -= len(self.channels)
+        # перевіряємо, на який канал потрапили (критичне значення: довжина списку)
+        if TVController.my_channel == len(self.channels):
+            TVController.my_channel = 0
         return self.channels[TVController.my_channel]
 
     def previous_channel(self):
         # додаємо одне переключення назад
         TVController.my_channel -= 1
-        # перевіряємо, на який канал потрапили (не менше за довжину списку назад)
-        while TVController.my_channel < len(self.channels) * (-1):
-            TVController.my_channel += len(self.channels)
+        # перевіряємо, на який канал потрапили (критичне значення: мінус довжина списку мінус один)
+        if TVController.my_channel == len(self.channels) * (-1) - 1:
+            TVController.my_channel = 2
         return self.channels[TVController.my_channel]
 
     def current_channel(self):
@@ -93,9 +90,9 @@ controller = TVController(CHANNELS)
 print(f'Наш список каналів: {controller.channels}')
 print(f'Перший канал: {controller.first_channel()}')
 print(f'Останній канал: {controller.last_channel()}')
-print(f'Перемикаємо на n значень: {controller.turn_channel(1)}')
+print(f"Перемикаємо на N канал: {controller.turn_channel('2')}")
 print(f'Наступний канал: {controller.next_channel()}')
 print(f'Попередній канал: {controller.previous_channel()}')
 print(f'Нинішній канал: {controller.current_channel()}')
-print(f'Чи існує канал під номером N: {controller.is_exist(4)}')
+print(f"Чи існує канал під номером N: {controller.is_exist('4')}")
 print(f"Чи існує канал з іменем 'name': {controller.is_exist('BBC / #1 / [0]')}")
