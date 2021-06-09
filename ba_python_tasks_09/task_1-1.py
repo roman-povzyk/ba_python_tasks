@@ -15,5 +15,8 @@
 # ‘\n’ at the end of the string if you want to
 # fully terminate the line in the file.
 
-with open('myfile.txt', 'w') as file:
-    file.write('Hello file world!')
+try:
+    with open('myfile.txt', 'w') as file:
+        file.write('Hello file world!')
+except PermissionError:
+    print('Файл не доступний для запису. Змініть властивості файлу.')
