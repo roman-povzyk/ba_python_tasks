@@ -46,9 +46,10 @@ class TVController:
             if int(number) > len(self.channels) - 1:
                 print('Такого каналу немає на пульті *шипіння*')
             else:
+                TVController.my_channel = int(number) - 1
                 return self.channels[TVController.my_channel]
         except ValueError:
-            print('Ви передали число не цифрами. Поправте, будь ласка.')
+            print('Ви передали число не цифрою. Поправте, будь ласка.')
 
     def next_channel(self):
         # додаємо одне переключення вперед
@@ -90,7 +91,7 @@ controller = TVController(CHANNELS)
 print(f'Наш список каналів: {controller.channels}')
 print(f'Перший канал: {controller.first_channel()}')
 print(f'Останній канал: {controller.last_channel()}')
-print(f"Перемикаємо на N канал: {controller.turn_channel('2')}")
+print(f"Перемикаємо на N канал: {controller.turn_channel('1')}")
 print(f'Наступний канал: {controller.next_channel()}')
 print(f'Попередній канал: {controller.previous_channel()}')
 print(f'Нинішній канал: {controller.current_channel()}')
