@@ -19,4 +19,4 @@ class Person:
 
 
 man = Person('Carl', 'Johnson', 26)
-print(man.talk())
+man.talk()
