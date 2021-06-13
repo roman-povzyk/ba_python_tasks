@@ -8,12 +8,20 @@ def smart_div(my_list):
     nominator = int(my_list[0])
     denominator = int(my_list[1])
     # припускаємо, що найбільше спільне кратне — максимальне число у дробі
-    least_common_divisor = max(nominator, denominator)
+    least_common_divisor = max(abs(nominator), abs(denominator))
+    print(least_common_divisor)
     # шукаємо справжнє спільне кратне, опускаючись до 2
     for search_item in range(least_common_divisor, 2, -1):
-        if nominator % search_item == 0 and denominator % search_item == 0 and nominator != 0:
+        if abs(nominator) % search_item == 0 and abs(denominator) % search_item == 0 and nominator != 0:
             nominator /= search_item
             denominator /= search_item
+    # поправляємо знаки на випадок мінусових значень у знаменнику
+    if nominator < 0 and denominator < 0:
+        nominator *= -1
+        denominator *= -1
+    elif denominator < 0:
+        denominator *= -1
+    # вносимо спрощений дріб
     my_list.clear()
     my_list.append(int(nominator))
     my_list.append(int(denominator))
@@ -139,8 +147,8 @@ class Fraction:
         return self.__str__()
 
 
-x = Fraction('-1/7')
-y = Fraction('1/3')
+x = Fraction('1/2')
+y = Fraction('-1/2')
 
 print(x + y)
 print(x - y)
