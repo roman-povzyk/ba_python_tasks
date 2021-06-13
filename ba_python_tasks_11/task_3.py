@@ -39,6 +39,7 @@ class Product:
         """створення класу продуктів"""
         self.type = type
         self.name = name
+        # перевірка, щоб ціна не була коректно введена
         try:
             if int(price) < 0:
                 print(f'Ціна не може бути від\'ємним значенням. \n'
@@ -59,21 +60,25 @@ class ProductStore(Product):
 
     def add(self, product, amount):
         """додавання продукту до магазину зі знижкою у 30%"""
+        # перевірка, щоб кількість була коректно введена
         try:
             if int(amount) < 0:
                 print(f'Кількість товару не може бути менше нуля. \n'
-                      f'Якщо не виправите, то к-ть товару — 0 штук.')
+                      f'Якщо не виправите, то к-ть товару — 0 штук (відсутній у магазині).')
                 amount = 0
+            # виводимо характеристики доданого до магазину товару
             else:
                 self.product_list.append({'type': product.type, 'name': product.name,
                                           'price': round(product.price * 0.7, 2), 'amount': amount})
+                print(f'Новий продукт: {product.name} ({product.type}), '
+                      f'ціна зі знижкою у 30%: {round(product.price * 0.7, 2)} грн. Кількість одиниць: {amount}.')
         except ValueError:
             print(f'Кількість товару має бути числом. \n'
                   f'Якщо не виправите, то к-ть товару — 0 штук.')
 
     def set_discount(self, identifier, percent, identifier_type='name'):
         """встановлення знижки на продукт"""
-
+        # перевіряємо, щоб відсоток був коректно введений
         try:
             if int(percent) < 0:
                 print(f'Знижка не може бути від\'ємним значенням. \n'
@@ -85,13 +90,17 @@ class ProductStore(Product):
             percent = 0
 
         for product in self.product_list:
-            for search_identifier in product[identifier_type]:
-                if search_identifier == identifier:
-                    product['price'] *= (1 - (percent / 100))
-                    product['price'] = round(product['price'], 2)
+            if identifier in product[identifier_type]:
+                product['price'] *= (1 - (percent / 100))
+                product['price'] = round(product['price'], 2)
+                # виводимо оновлені характеристики акційного товару
+                print(f"Акційний продукт: {product['name']} ({product['type']}), "
+                      f"ціна зі знижкою у {percent}%: {product['price']} грн. "
+                      f"Кількість одиниць: {product['amount']}.")
 
     def sell_product(self, product_name, amount):
         """продаж продукту у магазині і підрахування прибутку"""
+        # перевіряємо, щоб кількість товару була коректно введена
         try:
             if int(amount) < 0:
                 print(f'Кількість проданого товару не може бути менше нуля. \n'
@@ -103,8 +112,24 @@ class ProductStore(Product):
 
         for product in self.product_list:
             if product['name'] == product_name:
-                product['amount'] -= amount
-                self.total_income = round(amount * product['price'], 2)
+                # пропрацьовуємо сценарій, коли товару достатньо
+                if product['amount'] > amount:
+                    product['amount'] -= amount
+                    print(f"Проданий продукт: {product['name']} ({product['type']}). Проданих одиниць: {amount}.")
+                    self.total_income += round(amount * product['price'], 2)
+                    print(f"Прибуток магазину завдяки цій транзакції: {round(amount * product['price'], 2)} грн")
+                # пропрацьовуємо сценарій, коли товару менше, ніж треба
+                elif product['amount'] > 0:
+                    print(f"Товару {product['name']} ({product['type']}) лишилося менше ({product['amount']} одиниць), "
+                          f"ніж хочуть покупці ({amount} одиниць). "
+                          f"Тому продаємо лише цю кількість, що лишилася.")
+                    self.total_income += round(product['amount'] * product['price'], 2)
+                    print(f"Прибуток магазину завдяки цій транзакції: "
+                          f"{round(product['amount'] * product['price'], 2)} грн.")
+                    product['amount'] = 0
+                # пропрацьовуємо сценарій, коли товару вже немає
+                else:
+                    print(f"Товару {product['name']} ({product['type']}) більше не лишилося. Тому він не продається.")
 
     def get_income(self):
         """показ прибутку"""
@@ -123,17 +148,33 @@ class ProductStore(Product):
         return product_info
 
 
+# створюємо товари
 product_1 = Product('Sport', 'Football T-Shirt', 100)
-product_2 = Product('Food', 'Ramen', 1.5)
+product_2 = Product('Food', 'Ramen', 1)
 
+# відкриваємо магазин
 store = ProductStore()
 
+# завозимо створені товари
 store.add(product_1, 10)
 store.add(product_2, 300)
+print()
 
-store.set_discount('Food', 50, 'type')
+# оголошуємо акцію
+store.set_discount('Food', 20, 'type')
+print()
+
+# приклад, коли товару достатньо
 store.sell_product('Ramen', 10)
+print()
+# приклад, коли товару менше, ніж треба
+store.sell_product('Ramen', 300)
+print()
+# приклад, коли товару вже немає для продажу
+store.sell_product('Ramen', 20)
+print()
 
-print(store.get_income())
-print(store.get_all_products())
-print(store.get_product_info('Ramen'))
+# статистика по магазину та окремим товарам
+print(f'Загальний прибуток магазину — {store.get_income()} грн.')
+print(f'Всі товари, які продаються в магазині: {store.get_all_products()}.')
+print(f"Інформація про залишки товару за запитом: {store.get_product_info('Ramen')}")
