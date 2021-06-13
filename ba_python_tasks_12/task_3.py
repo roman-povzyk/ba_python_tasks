@@ -5,13 +5,13 @@
 def smart_div(my_list):
     """функція, яка спрощує дроби,
     коли це необхідно, наприклад, 14/35 = 2/7"""
-    nominator = my_list[0]
-    denominator = my_list[1]
+    nominator = int(my_list[0])
+    denominator = int(my_list[1])
     # припускаємо, що найбільше спільне кратне — максимальне число у дробі
     least_common_divisor = max(nominator, denominator)
     # шукаємо справжнє спільне кратне, опускаючись до 2
-    for search_item in range(least_common_divisor + 1, 1, -1):
-        if nominator % search_item == 0 and denominator % search_item == 0:
+    for search_item in range(least_common_divisor, 2, -1):
+        if nominator % search_item == 0 and denominator % search_item == 0 and nominator != 0:
             nominator /= search_item
             denominator /= search_item
     my_list.clear()
@@ -31,10 +31,10 @@ def fraction_to_list(our_list_1, our_list_2):
         second_list = our_list_2.split('/')
         # створюємо один список з 4 елементів з двома дробами, приведеними до спільного знаменника
         final_list = []
-        final_list.append(int(second_list[1]) * int(first_list[1]) / int(first_list[1]))
-        final_list.append(int(second_list[1]) * int(first_list[1]))
-        final_list.append(int(second_list[1]) * int(first_list[1]) / int(second_list[1]))
-        final_list.append(int(second_list[1]) * int(first_list[1]))
+        final_list.append(float(second_list[1]) * float(first_list[0]))
+        final_list.append(float(second_list[1]) * float(first_list[1]))
+        final_list.append(float(first_list[1]) * float(second_list[0]))
+        final_list.append(float(second_list[1]) * float(first_list[1]))
         return final_list
     except ValueError:
         print('Значення дробів має бути введено цифрами. Перевірте ваші дані.')
@@ -59,11 +59,16 @@ class Fraction:
         our_fraction_in_list = fraction_to_list(self.value, other.value)
         # обчислюємо чисельник і знаменник
         try:
-            answer_nominator = our_fraction_in_list[0] + our_fraction_in_list[2]
-            answer_denominator = our_fraction_in_list[1]
+            answer_nominator = float(our_fraction_in_list[0] + float(our_fraction_in_list[2]))
+            answer_denominator = float(our_fraction_in_list[1])
             # спрощуємо дріб
             final_answer = smart_div([answer_nominator, answer_denominator])
-            return Fraction(f'{final_answer[0]}/{final_answer[-1]}')
+            if final_answer[-1] == 1:
+                return Fraction(f'{final_answer[0]}')
+            if final_answer[0] == 0:
+                return Fraction(f'{final_answer[0]}')
+            else:
+                return Fraction(f'{final_answer[0]}/{final_answer[-1]}')
         except TypeError:
             print('Сума дробів не виведеться, оскільки ви ввели некоректні дані.')
 
@@ -74,11 +79,16 @@ class Fraction:
         our_fraction_in_list = fraction_to_list(self.value, other.value)
         # обчислюємо чисельник і знаменник
         try:
-            answer_nominator = our_fraction_in_list[0] - our_fraction_in_list[2]
-            answer_denominator = our_fraction_in_list[1]
+            answer_nominator = float(our_fraction_in_list[0]) - float(our_fraction_in_list[2])
+            answer_denominator = float(our_fraction_in_list[1])
             # спрощуємо дріб
             final_answer = smart_div([answer_nominator, answer_denominator])
-            return Fraction(f'{final_answer[0]}/{final_answer[-1]}')
+            if final_answer[-1] == 1:
+                return Fraction(f'{final_answer[0]}')
+            if final_answer[0] == 0:
+                return Fraction(f'{final_answer[0]}')
+            else:
+                return Fraction(f'{final_answer[0]}/{final_answer[-1]}')
         except TypeError:
             print('Різниця дробів не виведеться, оскільки ви ввели некоректні дані.')
 
@@ -89,11 +99,16 @@ class Fraction:
         our_fraction_in_list = fraction_to_list(self.value, other.value)
         # обчислюємо чисельник і знаменник
         try:
-            answer_nominator = our_fraction_in_list[0] * our_fraction_in_list[2]
-            answer_denominator = our_fraction_in_list[1] * our_fraction_in_list[3]
+            answer_nominator = float(our_fraction_in_list[0]) * float(our_fraction_in_list[2])
+            answer_denominator = float(our_fraction_in_list[1]) * float(our_fraction_in_list[3])
             # спрощуємо дріб
             final_answer = smart_div([answer_nominator, answer_denominator])
-            return Fraction(f'{final_answer[0]}/{final_answer[-1]}')
+            if final_answer[-1] == 1:
+                return Fraction(f'{final_answer[0]}')
+            if final_answer[0] == 0:
+                return Fraction(f'{final_answer[0]}')
+            else:
+                return Fraction(f'{final_answer[0]}/{final_answer[-1]}')
         except TypeError:
             print('Множення дробів не виведеться, оскільки ви ввели некоректні дані.')
 
@@ -110,6 +125,8 @@ class Fraction:
             final_answer = smart_div([answer_nominator, answer_denominator])
             if final_answer[-1] == 1:
                 return Fraction(f'{final_answer[0]}')
+            if final_answer[0] == 0:
+                return Fraction(f'{final_answer[0]}')
             else:
                 return Fraction(f'{final_answer[0]}/{final_answer[-1]}')
         except TypeError:
@@ -122,8 +139,8 @@ class Fraction:
         return self.__str__()
 
 
-x = Fraction('1/3')
-y = Fraction('1/7')
+x = Fraction('-1/7')
+y = Fraction('1/3')
 
 print(x + y)
 print(x - y)
