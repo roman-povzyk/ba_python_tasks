@@ -23,6 +23,16 @@ class Author:
         self.books = books
         Author.author_total_numbers += 1
 
+    def __str__(self):
+        return f'Дані про автора \n' \
+               f'Ім\'я та прізвище: {self.name}. \n' \
+               f'Країна народження: {self.country}. \n' \
+               f'День народження: {self.birthday}. \n' \
+               f'Книги автора: {self.books}.\n'
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class Book(Author):
     book_total_numbers = 0
@@ -35,6 +45,14 @@ class Book(Author):
         # тут рахуватимемо загальну кількість книг у бібліотеці
         Book.book_total_numbers += 1
 
+    def __str__(self):
+        return f'Назва книги: «{self.name}». \n' \
+               f'Рік видання: {self.year}. \n' \
+               f'Автор: {self.author.name} / {self.author.country} / {self.author.birthday}.\n'
+
+    def __repr__(self):
+        return self.__str__()
+
 
 class Library(Book):
     def __init__(self, name):
@@ -46,7 +64,8 @@ class Library(Book):
         """метод для прийняття книг у бібліотеку"""
         # перевіряємо чи коректно введений рік видання
         if not str(book.year).isdigit():
-            print('На жаль, книга має некоректно введений рік. Тому її рік буде — «0000»')
+            print(f'На жаль, книга «{book.name}» (автор — {book.author.name}) має некоректно введений рік. '
+                  f'Тому її рік буде — «0000».\n')
             book.year = '0000'
         # додаємо книгу у бібліотеку
         self.all_books.append({'name': book.name, 'year': book.year, 'author': book.author.name})
@@ -59,8 +78,9 @@ class Library(Book):
             if author.name == book['author']:
                 book_count += 1
                 print(f"№{book_count}: «{book['name']}» ({book['year']} рік)")
+        print()
         if book_count == 0:
-            print(f'На жаль, за запитом «{author.name}» {self.name} немає жодної книги.')
+            print(f'На жаль, за запитом «{author.name}» {self.name} немає жодної книги.\n')
 
     def group_by_year(self, year):
         """метод для групування за роком"""
@@ -70,8 +90,17 @@ class Library(Book):
             if year == book['year']:
                 book_count += 1
                 print(f"№{book_count}: «{book['name']}», автор — {book['author']}")
+        print()
         if book_count == 0:
-            print(f'На жаль, {self.name} немає жодної книги, яка вийшла у {year} році.')
+            print(f'На жаль, {self.name} немає жодної книги, яка вийшла у {year} році.\n')
+
+    def __str__(self):
+        return f'Вас вітає {self.name}! \n' \
+               f'Наш фонд: {Book.book_total_numbers} книг.\n' \
+               f'Наше різноманіття авторів: {Author.author_total_numbers}.\n'
+
+    def __repr__(self):
+        return self.__str__()
 
 
 # створюємо нашу бібліотеку
@@ -119,6 +148,5 @@ our_library.group_by_author(author_4)
 our_library.group_by_year('1979')
 our_library.group_by_year('2021')
 
-# отримуємо кількість книг, яку має бібліотека
-print(f'К-ть книг у бібліотеці: {Book.book_total_numbers} шт. '
-      f'К-ть авторів: {Author.author_total_numbers}.')
+# отримуємо кількість книг та авторів бібліотеки
+print(our_library.__str__())

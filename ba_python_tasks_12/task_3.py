@@ -9,9 +9,8 @@ def smart_div(my_list):
     denominator = int(my_list[1])
     # припускаємо, що найбільше спільне кратне — максимальне число у дробі
     least_common_divisor = max(abs(nominator), abs(denominator))
-    print(least_common_divisor)
     # шукаємо справжнє спільне кратне, опускаючись до 2
-    for search_item in range(least_common_divisor, 2, -1):
+    for search_item in range(least_common_divisor, 1, -1):
         if abs(nominator) % search_item == 0 and abs(denominator) % search_item == 0 and nominator != 0:
             nominator /= search_item
             denominator /= search_item
@@ -141,14 +140,14 @@ class Fraction:
             print('Ділення дробів не виведеться, оскільки ви ввели некоректні дані.')
 
     def __str__(self):
-        return f"Відповідь: {self.value}"
+        return f'Відповідь: {self.value}'
 
     def __repr__(self):
         return self.__str__()
 
 
-x = Fraction('1/2')
-y = Fraction('-1/2')
+x = Fraction('1/3')
+y = Fraction('1/2')
 
 print(x + y)
 print(x - y)
