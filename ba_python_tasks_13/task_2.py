@@ -1,3 +1,6 @@
+# Write a Python program to access a function inside a function
+# (Tips: use function, which returns another function)
+
 def double_number(y):
     return y * 2
 
