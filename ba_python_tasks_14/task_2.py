@@ -2,9 +2,9 @@
 # words and replaces them with *inside the decorated function
 def stop_words(words: list):
     def wrapper(func):
-        def string(name):
+        def string(*args, **kwargs):
             """Переписуємо поведінку нашої функції"""
-            our_str = str(func(name))
+            our_str = str(func(*args, **kwargs))
             for word in words:
                 if word.lower() in our_str.lower():
                     our_str = our_str.replace(word, '*')
