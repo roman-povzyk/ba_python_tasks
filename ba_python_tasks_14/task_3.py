@@ -8,20 +8,20 @@
 # otherwise, return the result.
 
 def arg_rules(type_: type, max_length: int, contains: list):
-    def wrapper(func):
-        def validate(name):
+    def inside(func):
+        def wrapper(func_arg):
             """Переписуємо поведінку нашої функції"""
-            if type(name) == type_ and len(name) < 16:
+            if type(func_arg) == type_ and len(func_arg) < 16:
                 for element in contains:
-                    if element in name:
+                    if element in func_arg:
                         pass
                     else:
                         return False
-                return func(name)
+                return func(func_arg)
             else:
                 return False
-        return validate
-    return wrapper
+        return wrapper
+    return inside
 
 
 @arg_rules(type_=str, max_length=15, contains=['05', '@'])
