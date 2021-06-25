@@ -14,8 +14,6 @@ def with_index(wi_iterable, wi_start=0):
         return my_list
 
 
-2
-
 fruits = ('apple', 'banana', 'cherry')
 with_index_fruits = with_index(fruits, 1)
 print(with_index_fruits)
