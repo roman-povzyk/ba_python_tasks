@@ -1,16 +1,16 @@
 import unittest
-import task_1_example_for_test
+import ba_python_tasks_13.task_3
 
 
 class NameTestCase(unittest.TestCase):
 
     def test_choose_func(self):
-        choose_func_example_1 = task_1_example_for_test.choose_func([1, 2, 3, 4, 5],
-                                                                    task_1_example_for_test.square_nums,
-                                                                    task_1_example_for_test.remove_negatives)
-        choose_func_example_2 = task_1_example_for_test.choose_func([1, -2, 3, -4, 5],
-                                                                    task_1_example_for_test.square_nums,
-                                                                    task_1_example_for_test.remove_negatives)
+        choose_func_example_1 = ba_python_tasks_13.task_3.choose_func([1, 2, 3, 4, 5],
+                                                                    ba_python_tasks_13.task_3.square_nums,
+                                                                    ba_python_tasks_13.task_3.remove_negatives)
+        choose_func_example_2 = ba_python_tasks_13.task_3.choose_func([1, -2, 3, -4, 5],
+                                                                    ba_python_tasks_13.task_3.square_nums,
+                                                                    ba_python_tasks_13.task_3.remove_negatives)
         self.assertEqual(choose_func_example_1, [1, 4, 9, 16, 25])
         self.assertEqual(choose_func_example_2, [1, 3, 5])
         self.assertNotEqual(choose_func_example_1, [1, 4, 9, 17, 25])
