@@ -8,12 +8,19 @@
 # use getters and setters instead!
 # You can refactor the existing code.
 
-class Boss:
-    """Створюємо керівника"""
+class Person:
+    """Створюємо особу"""
     def __init__(self, id_: int, name: str, company: str):
         self.id_ = id_
         self.name = name
         self.company = company
+
+
+class Boss(Person):
+    """Створюємо керівника"""
+
+    def __init__(self, id_, name, company, workers):
+        super().__init__(id_, name, company)
         self.workers = []
 
     @property
@@ -23,32 +30,31 @@ class Boss:
     @list_workers.setter
     def list_workers(self, worker):
         # перевіряємо, чи співпадає ім'я керівника у співробітника з керівником, до якого його додаємо
-        if worker[3] == self.name:
+        if worker.boss.name == self.name:
             # перевіряємо, чи співпадає компанія співробітника з компанією керівника, до якого його додаємо
-            if worker[2] == self.company:
+            if worker.company == self.company:
                 self.workers.append(worker)
             else:
-                print(f'У компанії {self.company} директор {self.name}, а не {worker[4]}')
+                print(f'У компанії {self.company} директор {self.name}, а не {worker.boss.name}.')
         else:
-            print(f'{worker[1]} працює на {worker[3]}, а не на {self.name}')
+            print(f'{worker.name} працює на {worker.boss.name}, а не на {self.name}.')
 
 
-class Worker:
-    def __init__(self, id_: int, name: str, company: str, boss: Boss):
-        self.id_ = id_
-        self.name = name
-        self.company = company
+class Worker(Person):
+    def __init__(self, id_, name, company, boss: Boss):
+        super().__init__(id_, name, company)
         self.boss = boss
 
+
 # створюємо керівників
-my_boss_1 = Boss(1, 'Pavlo', 'Banda')
-my_boss_2 = Boss(2, 'Andriy', 'Fedoriv')
+my_boss_1 = Boss(1, 'Pavlo', 'Banda', [])
+my_boss_2 = Boss(2, 'Andriy', 'Fedoriv', [])
 
 # створюємо співробітників
-worker_1 = (1, 'Veronika', 'Banda', 'Pavlo')
-worker_2 = (2, 'Olena', 'Banda', 'Pavlo')
-worker_3 = (3, 'Mykola', 'Fedoriv', 'Andriy')
-worker_4 = (4, 'Oksana', 'Fedoriv', 'Andriy')
+worker_1 = Worker(1, 'Veronika', 'Banda', my_boss_1)
+worker_2 = Worker(2, 'Olena', 'Banda', my_boss_1)
+worker_3 = Worker(3, 'Mykola', 'Fedoriv', my_boss_2)
+worker_4 = Worker(4, 'Oksana', 'Fedoriv', my_boss_2)
 
 # додаємо співробітників першому керівнику
 my_boss_1.list_workers = worker_1
@@ -63,5 +69,10 @@ my_boss_1.list_workers = worker_3
 my_boss_2.list_workers = worker_1
 
 # показуємо список співробітників для кожного керівника
-print(my_boss_1.list_workers)
-print(my_boss_2.list_workers)
+print()
+for worker in my_boss_1.list_workers:
+    print(f'У {my_boss_1.name} працює {worker.name} (#{worker.id_}).')
+
+print()
+for worker in my_boss_2.list_workers:
+    print(f'У {my_boss_2.name} працює {worker.name} (#{worker.id_}).')
