@@ -8,7 +8,7 @@ import os
 import sys
 
 
-def search_if_phone_exist(number: int) -> bool:
+def search_if_phone_exist(number: str) -> bool:
     if number in data_json.keys():
         return True
     else:
@@ -17,7 +17,7 @@ def search_if_phone_exist(number: int) -> bool:
 
 def search_by_content_exist() -> bool:
     print('Введіть ім\'я, прізвище чи місто, які потрібно знайти: ')
-    search_item = get_word_from_user()
+    search_item: str = get_word_from_user()
     content_exist: int = 0
     for contact in data_json.values():
         for content in contact:
@@ -68,7 +68,7 @@ def add_new_contact():
     new_first_name: str = get_word_from_user()
     new_last_name: str = get_word_from_user()
     new_city: str = get_word_from_user()
-    new_phone_number: int = get_phone_number_from_user()
+    new_phone_number: str = get_phone_number_from_user()
 
     if search_if_phone_exist(new_phone_number):
         print("""Такий телефон уже є у вашій книзі: 
@@ -102,7 +102,7 @@ def search_by_fullname():
 def search_by_phone():
     print('Введіть телефон, який потрібно знайти (10 цифр): ')
 
-    search_phone_number: int = get_phone_number_from_user()
+    search_phone_number: str = get_phone_number_from_user()
     find_phone_number: int = 0
 
     if search_if_phone_exist(search_phone_number):
@@ -118,7 +118,7 @@ def search_by_phone():
 def del_contact():
     print('Введіть номер телефону контакту, який потрібно видалити: ')
 
-    search_for_del_phone: int = get_phone_number_from_user()
+    search_for_del_phone: str = get_phone_number_from_user()
 
     if search_if_phone_exist(search_for_del_phone):
         del data_json[search_for_del_phone]
@@ -130,7 +130,7 @@ def del_contact():
 def edit_contact():
     print('Запишіть номер телефону контакта, який хочете відредагувати: ')
 
-    search_for_change_phone: int = get_phone_number_from_user()
+    search_for_change_phone: str = get_phone_number_from_user()
 
     if search_if_phone_exist(search_for_change_phone):
         print('Запишіть оновлені дані контакту: ім\'я, прізвище, місто: ')
