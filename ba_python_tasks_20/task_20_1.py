@@ -32,14 +32,14 @@ def search_by_content_exist() -> bool:
         return False
 
 
-def validate_word(word) -> str:
+def validate_word(word: str) -> str:
     if len(word) > 2:
         return word
     else:
         raise ValueError('Введіть щонайменше три символи')
 
 
-def get_word_from_user():
+def get_word_from_user() -> str:
     while True:
         try:
             return validate_word(input())
@@ -47,14 +47,14 @@ def get_word_from_user():
             print(error_msg_word)
 
 
-def validate_phone_number(number):
+def validate_phone_number(number: str) -> str:
     if len(number) == 10 and number.isdigit():
         return number
     else:
         raise ValueError('Номер телефону повинен складатися з 10 цифр')
 
 
-def get_phone_number_from_user():
+def get_phone_number_from_user() -> str:
     while True:
         try:
             return validate_phone_number(input('Телефон: '))
