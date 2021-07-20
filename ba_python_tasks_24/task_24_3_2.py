@@ -20,13 +20,12 @@ class Queue:
     def size(self):
         return len(self._items)
 
-    def get_from_stack(self, number):
+    def get_from_stack(self, item):
         try:
-            if len(self._items) - 1 < number:
-                raise ValueError(f'Не можемо знайти елемент №{number}.')
+            if item in self._items:
+                return item
             else:
-                element = self._items[number]
-                return element
+                raise ValueError(f'Не можемо знайти елемент.')
         except ValueError as err:
             print(err)
 
@@ -42,9 +41,10 @@ class Queue:
 
 if __name__ == "__main__":
     q = Queue()
-    q.enqueue(4)
-    q.enqueue('dog')
-    q.enqueue(True)
+    q.enqueue('Roman')
+    q.enqueue('Artem')
+    q.enqueue('Katya')
+    q.enqueue('Anna')
     print(q.size())
     print(q)
-    print(q.get_from_stack(2))
+    print(q.get_from_stack('Roman'))

@@ -21,13 +21,12 @@ class Stack:
     def size(self):
         return len(self._items)
 
-    def get_from_stack(self, number):
+    def get_from_stack(self, item):
         try:
-            if len(self._items) - 1 < number:
-                raise ValueError(f'Не можемо знайти елемент №{number}.')
+            if item in self._items:
+                return item
             else:
-                element = self._items[number]
-                return element
+                raise ValueError(f'Не можемо знайти елемент.')
         except ValueError as err:
             print(err)
 
@@ -45,15 +44,9 @@ if __name__ == "__main__":
     s = Stack()
 
     print(s.is_empty())
-    s.push(4)
-    s.push('dog')
-    print(s.peek())
-    s.push(True)
-    print(s.size())
-    print(s.is_empty())
-    s.push(8.4)
-    print(s.pop())
-    print(s.pop())
-    print(s.size())
+    s.push('Roma')
+    s.push('Katya')
+    s.push('Artem')
+    s.push('Anna')
     print(s)
-    print(s.get_from_stack(2))
+    print(s.get_from_stack('Artem'))
