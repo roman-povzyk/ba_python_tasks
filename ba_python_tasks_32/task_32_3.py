@@ -5,6 +5,7 @@
 
 import requests
 import sys
+from my_api_key import API_KEY
 
 # визначаємо потрібну адресу
 url = 'http://api.openweathermap.org/data/2.5/weather'
@@ -18,7 +19,7 @@ def main():
     payload = {
         'q': city_name,
         'units': 'metric',
-        'appid': '8dbc1f1632d291ba019e27d4e08ea9fd',
+        'appid': API_KEY,
         'lang': 'ua'
     }
     # перевіряємо успішність запиту
