@@ -1,3 +1,11 @@
+-- Create a table of your choice inside the sample SQLite database, rename it,
+-- and add a new column. Insert a couple rows inside your table.
+-- Also, perform UPDATE and DELETE statements on inserted rows.
+
+-- As a solution to this task, create a file named:
+-- task1.sql, with all the SQL statements you have used to accomplish this task
+
+
 CREATE TABLE grocerries (
     id INTEGER PRIMARY KEY,
     name TEXT,
